@@ -71,6 +71,15 @@ def toFront(name):
             break
     return window
 
+def strfdelta(tdelta, fmt):
+    '''
+    Takes a time.timedelta and returns a formatted string according to fmt. Format may contain {days}, {hours}, {minutes} and {seconds}
+    '''
+    d = {"days": tdelta.days}
+    d["hours"], rem = divmod(tdelta.seconds, 3600)
+    d["minutes"], d["seconds"] = divmod(rem, 60)
+    return fmt.format(**d)
+
 # Setting window title to be found in the search
 window_title = "Break Timer"
 os.system(f"title {window_title}")
@@ -81,6 +90,9 @@ minutes = int(input("How many minutes in between breakes: "))
 lastInterval = time.time()
 
 while True:
+    print(strfdelta(datetime.timedelta(seconds=60 * minutes - abs(time.time() - lastInterval)), "Time Remaining: {hours} hours : {minutes} minutes : {seconds} seconds"))
+    time.sleep(1)
+    os.system("cls")
     if(abs(time.time() - lastInterval) >= 60 * minutes):
         last_window = toFront(window_title.lower())
 
