@@ -10,6 +10,11 @@ import datetime
 import ctypes
 import re
 
+# Setting window title to be found in the search
+window_title = "Break Timer"
+os.system('mode con: cols=60 lines=10')
+os.system(f"title {window_title}")
+
 class WindowsBalloonTip:
     "Base code from https://gist.github.com/wontoncc/1808234"
     def __init__(self):
@@ -79,10 +84,6 @@ def strfdelta(tdelta, fmt):
     d["hours"], rem = divmod(tdelta.seconds, 3600)
     d["minutes"], d["seconds"] = divmod(rem, 60)
     return fmt.format(**d)
-
-# Setting window title to be found in the search
-window_title = "Break Timer"
-os.system(f"title {window_title}")
 
 # Instantiating Notifications
 notification_baloon = WindowsBalloonTip()
